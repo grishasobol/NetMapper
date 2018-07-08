@@ -6,6 +6,8 @@
 #include <set>
 
 using namespace boost;
+using v_desc = NetMapper::vertex_descriptor;
+using e_desc = NetMapper::edge_descriptor;
 
 NetMapper::NetMapper() {}
 
@@ -28,10 +30,20 @@ NetMapper::vertex_descriptor NetMapper::add_vertex() {
   return boost::add_vertex(graph);
 }
 
-
 NetMapper::edge_descriptor NetMapper::add_edge(vertex_descriptor first_vertex, 
   vertex_descriptor second_vertex, WeightType weight) {
   return boost::add_edge(first_vertex, second_vertex, weight, graph).first;
+}
+
+void NetMapper::remove_edge(NetMapper::edge_descriptor edge) {
+  cached_vertices.clear();
+  boost::remove_edge(edge, graph);
+}
+
+void NetMapper::remove_vertex(NetMapper::vertex_descriptor vertex) {
+  cached_vertices.clear();
+  boost::clear_vertex(vertex, graph);
+  boost::remove_vertex(vertex, graph);
 }
 
 size_t NetMapper::get_vert_num() const {
@@ -40,6 +52,11 @@ size_t NetMapper::get_vert_num() const {
 
 size_t NetMapper::get_edge_num() const {
   return num_edges(graph);
+}
+
+std::pair<e_desc, bool> NetMapper::get_edge(v_desc first_vertex,
+  v_desc second_vertex) const {
+  return boost::edge(first_vertex, second_vertex, graph);
 }
 
 std::vector<NetMapper::vertex_descriptor> 
