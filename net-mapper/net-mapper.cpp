@@ -64,6 +64,16 @@ std::pair<e_desc, bool> NetMapper::get_edge(v_desc first_vertex,
   return boost::edge(first_vertex, second_vertex, graph);
 }
 
+VerticesList NetMapper::get_vertices() const {
+  auto verts = boost::vertices(graph);
+  return VerticesList(verts.first, verts.second);
+}
+
+EdgesList NetMapper::get_edges() const {
+  auto edges = boost::edges(graph);
+  return EdgesList(edges.first, edges.second);
+}
+
 std::vector<NetMapper::vertex_descriptor> 
 NetMapper::get_path_to(NetMapper::vertex_descriptor dest_vertex) const {
   if (cached_vertices.find(dest_vertex) == cached_vertices.end()) {
