@@ -67,6 +67,7 @@ public:
   vertex_descriptor add_vertex();
 
   /// Add edge between to vertices in mapper
+  /// If edge already exist, then delete old edge and add the new edge
   /// @param first_vertex
   /// @param second_vertex
   /// @param weight is weight of creating edge
