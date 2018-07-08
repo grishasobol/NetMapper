@@ -83,3 +83,21 @@ TEST_F(TestGraphMapper, LOL) {
   EXPECT_EQ(mapper.get_vert_num(), correct_vertices_num);
   EXPECT_EQ(mapper.get_edge_num(), correct_edge_num);
 }
+
+TEST_F(TestGraphMapper, TestVerticesList) {
+  std::string correct_vertices = "0 1 2 3 4 5 ";
+  std::string vertices;
+  for (auto vert : mapper.get_vertices()) {
+    vertices += std::to_string(vert) + " ";
+  }
+  EXPECT_EQ(correct_vertices, vertices);
+}
+
+TEST_F(TestGraphMapper, TestEdgesList) {
+  double correct_sum = 86;
+  double sum = 0;
+  for (auto edge : mapper.get_edges()) {
+    sum += mapper.get_weight(edge);
+  }
+  EXPECT_EQ(correct_sum, sum);
+}
