@@ -74,6 +74,10 @@ EdgesList NetMapper::get_edges() const {
   return EdgesList(edges.first, edges.second);
 }
 
+NetMapper::WeightType NetMapper::get_weight(e_desc edge) {
+  return boost::get(boost::edge_weight_t(), graph, edge);
+}
+
 std::vector<NetMapper::vertex_descriptor> 
 NetMapper::get_path_to(NetMapper::vertex_descriptor dest_vertex) const {
   if (cached_vertices.find(dest_vertex) == cached_vertices.end()) {

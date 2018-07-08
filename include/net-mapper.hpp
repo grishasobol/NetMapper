@@ -48,6 +48,7 @@ public:
     vertex_descriptor second_vertex) const;
   VerticesList get_vertices() const;
   EdgesList get_edges() const;
+  WeightType get_weight(edge_descriptor edge);
   std::vector<vertex_descriptor> get_path_to(vertex_descriptor dest_vertex) const;
 };
 
