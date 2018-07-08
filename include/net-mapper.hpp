@@ -31,9 +31,13 @@ public:
   vertex_descriptor add_vertex();
   edge_descriptor add_edge(vertex_descriptor first_vertex, 
     vertex_descriptor second_vertex, WeightType weight);
+  void remove_edge(edge_descriptor edge);
+  void remove_vertex(vertex_descriptor vertex);
 
   size_t get_vert_num() const;
   size_t get_edge_num() const;
+  std::pair<edge_descriptor, bool> get_edge(vertex_descriptor first_vertex, 
+    vertex_descriptor second_vertex) const;
   std::vector<vertex_descriptor> get_path_to(vertex_descriptor dest_vertex) const;
 };
 
