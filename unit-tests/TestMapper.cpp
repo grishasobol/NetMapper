@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <ostream>
+#include <string>
 
 class TestMapper : public ::testing::Test
 {
@@ -52,18 +53,18 @@ TEST_F(TestGraphMapper, CheckAddEdges) {
 }
 
 TEST_F(TestGraphMapper, CheckPathToVertex1) {
-  const std::vector<v_desc> answer = { 0, 0, 1, 1, 3, 3 };
-  EXPECT_EQ(answer, mapper.get_path_to(v0));
+  const std::vector<v_desc> correct_path = { 0, 0, 1, 1, 3, 3 };
+  EXPECT_EQ(correct_path, mapper.get_path_to(v0));
 }
 
 TEST_F(TestGraphMapper, CheckPathToVertex2) {
-  const std::vector<v_desc> answer = { 1, 3, 4, 4, 4, 4 };
-  EXPECT_EQ(answer, mapper.get_path_to(v4));
+  const std::vector<v_desc> correct_path = { 1, 3, 4, 4, 4, 4 };
+  EXPECT_EQ(correct_path, mapper.get_path_to(v4));
 }
 
 TEST_F(TestGraphMapper, CheckPathToVertex3) {
-  const std::vector<v_desc> answer = { 1, 3, 5, 5, 5, 5 };
-  EXPECT_EQ(answer, mapper.get_path_to(v5));
+  const std::vector<v_desc> correct_path = { 1, 3, 5, 5, 5, 5 };
+  EXPECT_EQ(correct_path, mapper.get_path_to(v5));
 }
 
 TEST_F(TestGraphMapper, CheckPathToAfterChanges) {
