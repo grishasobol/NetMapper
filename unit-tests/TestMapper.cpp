@@ -52,6 +52,27 @@ TEST_F(TestGraphMapper, CheckAddEdges) {
   EXPECT_EQ(mapper.get_edge_num(), correct_edges_num);
 }
 
+TEST_F(TestGraphMapper, TestRemoveVertex) {
+  mapper.remove_vertex(v0);
+  size_t correct_edge_num = 7;
+  size_t correct_vertices_num = 5;
+  EXPECT_EQ(mapper.get_vert_num(), correct_vertices_num);
+  EXPECT_EQ(mapper.get_edge_num(), correct_edge_num);
+}
+
+TEST_F(TestGraphMapper, TestRemoveEdge) {
+  mapper.remove_edge(mapper.get_edge(v4, v3).first);
+  size_t correct_edge_num = 7;
+  size_t correct_vertices_num = 6;
+  EXPECT_EQ(mapper.get_vert_num(), correct_vertices_num);
+  EXPECT_EQ(mapper.get_edge_num(), correct_edge_num);
+}
+
+TEST_F(TestGraphMapper, TestGetWeight) {
+  double correct_weight = 12;
+  EXPECT_EQ(correct_weight, mapper.get_weight(mapper.get_edge(v1, v2).first));
+}
+
 TEST_F(TestGraphMapper, CheckPathToVertex1) {
   const std::vector<v_desc> correct_path = { 0, 0, 1, 1, 3, 3 };
   EXPECT_EQ(correct_path, mapper.get_path_to(v0));
@@ -67,7 +88,27 @@ TEST_F(TestGraphMapper, CheckPathToVertex3) {
   EXPECT_EQ(correct_path, mapper.get_path_to(v5));
 }
 
-TEST_F(TestGraphMapper, CheckPathToAfterChanges) {
+TEST_F(TestGraphMapper, CheckPathWithClearVertices) {
+  mapper.add_vertex();
+  mapper.add_vertex();
+  const std::vector<v_desc> correct_path = { 1, 3, 5, 5, 5, 5, 6, 7 };
+  EXPECT_EQ(correct_path, mapper.get_path_to(v5));
+}
+
+TEST_F(TestGraphMapper, CheckPathToClearVertex) {
+  auto v6 = mapper.add_vertex();
+  const std::vector<v_desc> correct_path = { 0, 1, 2, 3, 4, 5, 6 };
+  EXPECT_EQ(correct_path, mapper.get_path_to(v6));
+}
+
+TEST_F(TestGraphMapper, CheckPathAfterRemovingEdge) {
+  mapper.remove_edge(mapper.get_edge(v4, v5).first);
+  mapper.remove_edge(mapper.get_edge(v4, v3).first);
+  const std::vector<v_desc> correct_path = { 0, 0, 1, 1, 2, 3};
+  EXPECT_EQ(correct_path, mapper.get_path_to(v0));
+}
+
+TEST_F(TestGraphMapper, CheckPathAfterChanges) {
   auto dest_vert = v0;
   auto v6 = mapper.add_vertex();
   mapper.add_edge(v0, v6, 2);
@@ -75,14 +116,6 @@ TEST_F(TestGraphMapper, CheckPathToAfterChanges) {
   mapper.add_edge(v2, v1, 17);
   const std::vector<v_desc> answer = { 0, 0, 5, 6, 3, 3, 0 };
   EXPECT_EQ(answer, mapper.get_path_to(dest_vert));
-}
-
-TEST_F(TestGraphMapper, LOL) {
-  mapper.remove_vertex(v0);
-  size_t correct_edge_num = 7;
-  size_t correct_vertices_num = 5;
-  EXPECT_EQ(mapper.get_vert_num(), correct_vertices_num);
-  EXPECT_EQ(mapper.get_edge_num(), correct_edge_num);
 }
 
 TEST_F(TestGraphMapper, TestVerticesList) {
