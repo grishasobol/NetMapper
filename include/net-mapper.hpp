@@ -17,8 +17,6 @@
 #include "boost/graph/adjacency_list.hpp"
 #include "boost/graph/dijkstra_shortest_paths.hpp"
 
-#include <type_traits>
-
 class VerticesList;
 class EdgesList;
 
