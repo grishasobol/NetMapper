@@ -32,6 +32,11 @@ NetMapper::vertex_descriptor NetMapper::add_vertex() {
 
 NetMapper::edge_descriptor NetMapper::add_edge(vertex_descriptor first_vertex, 
   vertex_descriptor second_vertex, WeightType weight) {
+  auto exist_edge = get_edge(first_vertex, second_vertex);
+  if (exist_edge.second) {
+    remove_edge(exist_edge.first);
+  }
+  cached_vertices.clear();
   return boost::add_edge(first_vertex, second_vertex, weight, graph).first;
 }
 
