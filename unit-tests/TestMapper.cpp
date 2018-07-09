@@ -118,6 +118,15 @@ TEST_F(TestGraphMapper, CheckPathAfterChanges) {
   EXPECT_EQ(answer, mapper.get_path_to(dest_vert));
 }
 
+TEST_F(TestGraphMapper, CheckGetNextVert) {
+  EXPECT_EQ(mapper.get_next_vert(v5, v0), v3);
+  EXPECT_EQ(mapper.get_next_vert(v4, v0), v3);
+  mapper.add_edge(v0, v5, 3);
+  EXPECT_EQ(mapper.get_next_vert(v5, v0), v0);
+  mapper.add_edge(v0, v4, 3);
+  EXPECT_EQ(mapper.get_next_vert(v4, v0), v0);
+}
+
 TEST_F(TestGraphMapper, TestVerticesList) {
   std::string correct_vertices = "0 1 2 3 4 5 ";
   std::string vertices;
