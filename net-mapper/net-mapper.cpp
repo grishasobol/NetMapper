@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <ostream>
 
 using namespace boost;
 using v_desc = NetMapper::vertex_descriptor;
@@ -87,3 +88,8 @@ NetMapper::get_path_to(NetMapper::vertex_descriptor dest_vertex) const {
   }
   return path_preds_cache[dest_vertex];
 }
+
+v_desc NetMapper::get_next_vert(v_desc source_vert, v_desc dest_vert) const {
+  return get_path_to(dest_vert)[source_vert];
+}
+

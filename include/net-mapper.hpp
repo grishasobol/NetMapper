@@ -46,6 +46,8 @@ private:
   /// and store them to cache 
   void find_path(vertex_descriptor dest_vertex) const;
 
+  // TODO: caches should be changed to vector structure instead of map and set
+
   /// Cache used to store predecessors of pathes to vertex
   mutable std::map<vertex_descriptor, std::vector<vertex_descriptor>> path_preds_cache;
 
@@ -107,9 +109,16 @@ public:
   /// @return is weight of the edge
   WeightType get_weight(edge_descriptor edge);
 
+  /// Calculate next vertex of shortest path to dest_vertex
   /// @param dest_vertex is descriptor of destination vertex
-  /// @return vector of predecessors of path to destination vertex
+  /// @return vector of next vertices for each vertex in mapper
   std::vector<vertex_descriptor> get_path_to(vertex_descriptor dest_vertex) const;
+
+  /// @param source_vert is descriptor of source vertex
+  /// @param dest_vert is descriptor of destination vertex
+  /// @return next vertex in shortest path to dest_vert
+  vertex_descriptor get_next_vert(vertex_descriptor source_vert, 
+    vertex_descriptor dest_vert) const;
 };
 
 // TODO: VerticesList and EdgesList could be one template
