@@ -110,10 +110,13 @@ public:
   WeightType get_weight(edge_descriptor edge);
 
   /// Calculate next vertex of shortest path to dest_vertex
+  /// If some vertices has no path to dest_vert, than vector contain
+  /// descriptor of that vertices on their places.
   /// @param dest_vertex is descriptor of destination vertex
   /// @return vector of next vertices for each vertex in mapper
   std::vector<vertex_descriptor> get_path_to(vertex_descriptor dest_vertex) const;
 
+  /// If vertex has no path to dest_vert, than returns descriptor to source_vert
   /// @param source_vert is descriptor of source vertex
   /// @param dest_vert is descriptor of destination vertex
   /// @return next vertex in shortest path to dest_vert
