@@ -136,30 +136,36 @@ TEST_F(TestGraphMapper, TestEdgesList) {
   EXPECT_EQ(correct_sum, sum);
 }
 
-TEST_F(TestGraphMapper, OutOfRangeGetEdge) {
-  EXPECT_DEATH(mapper.get_edge(100, 101), "");
-}
-
-TEST_F(TestGraphMapper, OutOfRangeAddEdge) {
-  EXPECT_DEATH(mapper.add_edge(100, 101, 10), "");
-}
-
-TEST_F(TestGraphMapper, OutOfRangeRemoveVertex) {
-  EXPECT_DEATH(mapper.remove_vertex(100), "");
-}
-
 TEST_F(TestGraphMapper, GetNoExistEdge) {
   EXPECT_FALSE(mapper.get_edge(v0, v5).second);
 }
 
+
+// Crash assertion tests only in debug mode
+#ifndef NDEBUG
+
+TEST_F(TestGraphMapper, OutOfRangeGetEdge) {
+  EXPECT_DEBUG_DEATH(mapper.get_edge(100, 101), "");
+}
+
+TEST_F(TestGraphMapper, OutOfRangeAddEdge) {
+  EXPECT_DEBUG_DEATH(mapper.add_edge(100, 101, 10), "");
+}
+
+TEST_F(TestGraphMapper, OutOfRangeRemoveVertex) {
+  EXPECT_DEBUG_DEATH(mapper.remove_vertex(100), "");
+}
+
 TEST_F(TestGraphMapper, RemoveNoExistEdge) {
-  EXPECT_DEATH(mapper.remove_edge(mapper.get_edge(v0, v5).first), "");
+  EXPECT_DEBUG_DEATH(mapper.remove_edge(mapper.get_edge(v0, v5).first), "");
 }
 
 TEST_F(TestGraphMapper, GetWeightNoExistEdge) {
-  EXPECT_DEATH(mapper.get_weight(mapper.get_edge(v0, v5).first), "");
+  EXPECT_DEBUG_DEATH(mapper.get_weight(mapper.get_edge(v0, v5).first), "");
 }
 
 TEST_F(TestGraphMapper, GetPathToNoExistVertex) {
-  EXPECT_DEATH(mapper.get_path_to(100), "");
+  EXPECT_DEBUG_DEATH(mapper.get_path_to(100), "");
 }
+
+#endif // DEBUG
