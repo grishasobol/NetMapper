@@ -121,6 +121,8 @@ public:
     vertex_descriptor dest_vert) const;
 };
 
+std::ostream& operator<<(std::ostream& os, const NetMapper& mapper);
+
 // TODO: VerticesList and EdgesList could be one template
 
 /// Class that represents functionality to iterate over mapper vertices

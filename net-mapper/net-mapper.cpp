@@ -93,3 +93,16 @@ v_desc NetMapper::get_next_vert(v_desc source_vert, v_desc dest_vert) const {
   return get_path_to(dest_vert)[source_vert];
 }
 
+std::ostream& operator<<(std::ostream& os, const NetMapper& mapper) {
+  os << "Vertices: ";
+  for (auto vert : mapper.get_vertices()) {
+    os << vert << " ";
+  }
+  os << std::endl;
+  os << "Edges: ";
+  for (auto edge : mapper.get_edges()) {
+    os << "(" << edge.m_source << ", " << edge.m_target << ") ";
+  }
+  os << std::endl;
+  return os;
+}
