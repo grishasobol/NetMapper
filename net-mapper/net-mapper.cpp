@@ -23,7 +23,7 @@ void NetMapper::find_path(vertex_descriptor dest_vertex) const {
   preds_map_t predmap(path_preds.begin(), get(boost::vertex_index, graph));
   dijkstra_shortest_paths(graph, dest_vertex, predecessor_map(predmap));
 
-  path_preds_cache.insert(std::make_pair(dest_vertex, std::move(path_preds)));
+  path_preds_cache[dest_vertex] = std::move(path_preds);
   cached_vertices.insert(dest_vertex);
 }
 
